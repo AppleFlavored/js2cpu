@@ -1,0 +1,3 @@
+function kernel_main() {
+
+}
