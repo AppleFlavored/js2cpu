@@ -16,7 +16,7 @@ struct Args {
 
 fn main() -> Result<(), error::Error> {
     let args = Args::parse();
-    compile_file(&args.input)?;
+    compile_file(&args.input, &args.output.unwrap_or("a.out".into()))?;
 
     Ok(())
 }
