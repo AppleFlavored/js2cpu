@@ -23,8 +23,12 @@ pub fn compile_file(input_path: &Path, output_path: &Path) -> Result<(), error::
     }
 
     let program = allocator.alloc(parser.program);
+    let filename = match input_path.file_name() {
+        Some(filename) => filename.to_str().unwrap(),
+        None => panic!("provided input is not a file"),
+    };
 
-    let mut backend = X64Backend::new()?;
+    let mut backend = X64Backend::new(filename)?;
     let mut visitor = NodeVisitor::new(&mut backend);
     visitor.visit_program(program);
 

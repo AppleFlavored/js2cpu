@@ -15,13 +15,28 @@ pub struct X64Backend<'a> {
 }
 
 impl<'a> X64Backend<'a> {
-    pub fn new() -> Result<X64Backend<'a>, error::Error> {
+    pub fn new(output_file: &str) -> Result<X64Backend<'a>, error::Error> {
         let asm = CodeAssembler::new(64)?;
-        let obj = Object::new(
+        let mut obj = Object::new(
             object::BinaryFormat::Elf,
             object::Architecture::X86_64,
             object::Endianness::Little,
         );
+
+        obj.add_file_symbol(output_file.into());
+
+        let section_id = obj.section_id(StandardSection::Text);
+        obj.add_symbol(Symbol {
+            name: ".text".into(),
+            value: 0,
+            size: 0,
+            kind: SymbolKind::Section,
+            scope: SymbolScope::Linkage,
+            weak: false,
+            section: SymbolSection::Section(section_id),
+            flags: SymbolFlags::None,
+        });
+
         Ok(X64Backend { asm, obj })
     }
 
@@ -65,9 +80,9 @@ impl<'a> Backend for X64Backend<'a> {
         let symbol_id = self.obj.add_symbol(Symbol {
             name: name.into(),
             value: 0,
-            size: encoded.len() as u64,
+            size: encoded.len() as _,
             kind: SymbolKind::Text,
-            scope: SymbolScope::Compilation,
+            scope: SymbolScope::Dynamic,
             weak: false,
             section: SymbolSection::Section(section_id),
             flags: SymbolFlags::None,
