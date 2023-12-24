@@ -1,3 +1,0 @@
-function kernel_main() {
-
-}
