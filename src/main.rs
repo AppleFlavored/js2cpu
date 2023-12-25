@@ -1,7 +1,7 @@
 use clap::Parser;
 use oxc_allocator::Allocator;
-use oxc_ast::SourceType;
 use oxc_parser::Parser as OxcParser;
+use oxc_span::SourceType;
 use std::fs::File;
 use std::io::Read;
 use std::path::PathBuf;

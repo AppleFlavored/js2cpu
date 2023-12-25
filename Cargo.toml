@@ -4,10 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.1.8", features = ["derive"] }
-oxc_parser = "0.0.5"
-oxc_ast = "0.0.5"
-oxc_allocator = "0.0.1"
-miette = { version = "5.7.0", features = ["fancy"] }
-object = { version = "0.30.3", features = ["write"] }
-thiserror = "1.0.48"
+clap = { version = "4.4.11", features = ["derive"] }
+oxc_parser = "0.4.0"
+oxc_ast = "0.4.0"
+oxc_allocator = "0.4.0"
+oxc_span = "0.4.0"
+miette = { version = "5.10.0", features = ["fancy"] }
+object = { version = "0.32.2", features = ["write"] }
+thiserror = "1.0.51"
